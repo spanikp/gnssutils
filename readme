@@ -6,6 +6,7 @@ downloadSINEX.sh:
 
 Example of usage:
 ./downloadSINEX.sh serverURL weekStart weekEnd processingCenter folderToStore
+./downloadSINEX.sh ftp://igs.bkg.bund.de/EUREF/products/ 1930 1931 sut sut
 
 Inputs:
 serverURL - e.g. "ftp://igs.bkg.bund.de/EUREF/products/" (notice last "/"!) 
@@ -24,12 +25,19 @@ no dependencies
 getStatCrd.sh:
 
 Example of usage:
-./getStatCrd.sh folderWithSINEX stat > stat.txt 
+./getStatCrd.sh folderWithSINEX stat > outputFile
+./getStatCrd.sh sut GANP > GANP.csv
+./getStatCrd.sh sut/weekly GANP > GANPweekly.csv
 
 Inputs:
 folderWithSINEX - absolute/relative path to local folder with SINEX files
                 - script will parse data from all SINEX files in given folder
 stat - station for which coordinates should be extracted
 
+Output:
+outputFile - path to CSV output file
+           - content of the file is following:
+             source,stat,year,month,day,hour,minute,second,X,Y,Z,sX,sY,sZ
+             (note: time info is gathered from SINEX filename!)
 Dependencies:
 convertTime.py
