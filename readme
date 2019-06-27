@@ -1,0 +1,35 @@
+Bash shell scripts for downloading and extracting coordinates from SINEX files.
+
+===============================================================================
+
+downloadSINEX.sh:
+
+Example of usage:
+./downloadSINEX.sh serverURL weekStart weekEnd processingCenter folderToStore
+
+Inputs:
+serverURL - e.g. "ftp://igs.bkg.bund.de/EUREF/products/" (notice last "/"!) 
+weekStart - GPS week number to start downloading (e.g. "1930")
+weekEnd - GPS week number to finish downloading (e.g. "1940")
+processingCenter - processing center of which SINEX files will be downloaded
+                 - previously check if centers are available at given server
+                 - for EUREF server e.g. "sut"
+folderToStore - local folder where to store file (e.g. "sinex")
+
+Dependencies:
+no dependencies
+
+===============================================================================
+
+getStatCrd.sh:
+
+Example of usage:
+./getStatCrd.sh folderWithSINEX stat > stat.txt 
+
+Inputs:
+folderWithSINEX - absolute/relative path to local folder with SINEX files
+                - script will parse data from all SINEX files in given folder
+stat - station for which coordinates should be extracted
+
+Dependencies:
+convertTime.py
