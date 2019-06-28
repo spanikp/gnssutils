@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script usage:
-# ./downloadSINEX.sh ftp://igs.bkg.bund.de/EUREF/products/ 1930 1935 sut folderToStore
+# ./downloadSINEX.sh ftp://igs.bkg.bund.de/EUREF/products/ 1930 1935 sut sut-download
 server=$1 # with last "/"
 from=$2
 to=$3
@@ -25,7 +25,7 @@ do
     wget -q --no-remove-listing $p # produce .listing and index.html
 
     # Loop for daily solution in given week
-    names=($(grep -oP "sut\d{4}[0-6].snx.Z" .listing))
+    names=($(grep -oP "$center\d{4}[0-6].snx.Z" .listing))
     for f in "${names[@]}"
     do
         url=$p$f
@@ -40,7 +40,7 @@ do
     done
 
     # Handle weekly solution
-    namesWeekly=($(grep -oP "sut\d{4}7.snx.Z" .listing))
+    namesWeekly=($(grep -oP "$center\d{4}7.snx.Z" .listing))
     for f in "${namesWeekly[@]}"
     do
         url=$p$f
