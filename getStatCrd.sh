@@ -46,6 +46,7 @@ sinexFolder=$1
 stat=$2
 
 files=($(ls -l $sinexFolder | grep -oP "[a-z]{3}\d{5}.snx"))
+echo "source;stat;year;month;day;hour;minute;second;X;Y;Z;sX;sY;sZ"
 for sinex in "${files[@]}"
 do
     sp="$sinexFolder/$sinex"
