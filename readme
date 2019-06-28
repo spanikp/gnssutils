@@ -37,7 +37,7 @@ stat - station for which coordinates should be extracted
 Output:
 outputFile - path to CSV output file
            - content of the file is following:
-             source,stat,year,month,day,hour,minute,second,X,Y,Z,sX,sY,sZ
+             source;stat;year;month;day;hour;minute;second;X;Y;Z;sX;sY;sZ
              (note: time info is gathered from SINEX filename!)
 Dependencies:
 convertTime.py

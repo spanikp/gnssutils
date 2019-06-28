@@ -4,7 +4,7 @@ getDateFromWeekDoy() {
     week=$(echo $1 | grep -oP "\d{4}") 
     dow=$(echo $1 | grep -oP "\d{4}\K\d")
     sow=$(echo "$dow*86400 + 43200" | bc) 
-    echo $week $sow | ./convertTime.py "%Y,%m,%d,%H,%M,%S"
+    echo $week $sow | ./convertTime.py "%Y;%m;%d;%H;%M;%S"
 }
 
 # Function to extract X,Y,Z,errX,errY,errZ from unzipped SINEX file
@@ -27,13 +27,16 @@ getCoordinatesFromSinex() {
     std=()
     for ct in "${crdt[@]}"
     do
-        #echo $c
-        c=$(sed -n "$lb,$le p" $file | grep -e "$ct   $stat" | grep -o -P "\d.\d{15}E[+]\d{2}")
-        s=$(sed -n "$lb,$le p" $file | grep -e "$ct   $stat" | grep -o -P " .\d{6}E[+|-]\d{2}"| sed 's/\s/0/g')
+        sed -n "$lb,$le p" "$file" > temp
+        c=$(grep -e "$ct   $stat" temp | grep -o -P "\d.\d{15}E[+]\d{2}")
+        s=$(grep -e "$ct   $stat" temp | grep -o -P " .\d{6}E[+|-]\d{2}"| sed 's/\s/0/g')
         crd+=("$c")
         std+=("$s")
     done
-    echo $1,$2,$d,${crd[0]},${crd[1]},${crd[2]},${std[0]},${std[1]},${std[2]}
+    if test -f temp; then # Cleanup temp
+        rm temp
+    fi
+    echo "$1;$2;$d;${crd[0]};${crd[1]};${crd[2]};${std[0]};${std[1]};${std[2]}"
 }
 #getCoordinates FILENAME STATION
 
@@ -52,8 +55,3 @@ do
         getCoordinatesFromSinex $sp $stat
     fi
 done
-
-
-
-
-

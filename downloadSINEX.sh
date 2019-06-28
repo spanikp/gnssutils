@@ -54,10 +54,6 @@ do
         fi
     done
 
-
-
-
-
     # Cleanup 
     rm index.html .listing
 done
