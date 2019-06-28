@@ -11,7 +11,7 @@ getDateFromWeekDoy() {
 # Coordinates are parsed from SINEX part "SOLUTION/ESTIMATE" 
 # Output format:
 # sinexFilename,station,X,Y,Z,errX,errY,errZ
-getCoordinates() {
+getCoordinatesFromSinex() {
     file=$1
     stat=$2
     
@@ -49,7 +49,7 @@ do
     if test -f $sp; then 
         #echo $sp
         #echo $stat
-        getCoordinates $sp $stat
+        getCoordinatesFromSinex $sp $stat
     fi
 done
 
