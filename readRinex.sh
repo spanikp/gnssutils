@@ -8,22 +8,23 @@ head -n"$eohl" $1 > head
 
 # Get number of observations per system
 n=$(getRinexObsTypesNumber head $2)
-#echo $n
+ot=$(getRinexObsTypes head $2 | tr '\n' ';' | sed 's/.$//')
 
 # Discover epochs
-epo=($(grep -oP "^>.+[.]\d+" $1 | sed 's/> //g' | sed -E 's/\s+/,/g'))
+epo=($(grep -oP "^>.+[.]\d+" $1 | sed 's/> //g' | sed -E 's/\s+/;/g'))
 epi=($(grep -noP "^>" $1 | grep -oP "\d+"))
+sv=($(getRinexSats $1 $2))
 
-#for ies in "${epi[@]}"
-#    do
-#        ((ies+=1))
-#        echo $ies
-#    done
-    
-echo ${epi[0]}
+# Create empty SV files
+CSVhead="year;month;day;hour;minute;second;${ot}"
+for sat in "${sv[@]}"
+do
+    echo $CSVhead > $sat
+done
 
-
-
-
-
-#./readRinex.sh JAB1065M.19o G
+# Looping epochs
+for ies in "${epi[@]}"
+    do
+        ((ies+=1))
+        echo $ies
+    done

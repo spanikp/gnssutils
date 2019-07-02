@@ -27,3 +27,7 @@ function getRinexObsTypesNumber () {
     L=$(grep -oP "^$2.+SYS / # / OBS TYPES" $1)
     echo $L | grep -oP " \d{1,2} "
 }
+
+function getRinexSats () {
+    grep -oP "^$2\d{2}" $1 | sort -u
+}
