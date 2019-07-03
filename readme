@@ -41,3 +41,19 @@ outputFile - path to CSV output file
              (note: time info is gathered from SINEX filename!)
 Dependencies:
 convertTime.py
+
+===============================================================================
+
+readRinex.sh
+
+Example of usage:
+./readRinex.sh rinexFile satsys
+
+Iputs:
+rinexFile - RINEX 3 observation file
+satsys - satellite system specifier (one of the G|R|E|C|J)
+
+Dependencies:
+no dependencies
+
+===============================================================================
